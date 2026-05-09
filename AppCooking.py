@@ -77,7 +77,7 @@ genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 @st.cache_resource
 def get_model():
     return genai.GenerativeModel(
-        model_name="gemini-3.1-flash-lite-preview",
+        model_name="gemini-2.5-flash",
         system_instruction=system_instruction
     )
 
@@ -88,7 +88,7 @@ if "messages" not in st.session_state:
     st.session_state.messages = [
         {
             "role": "assistant",
-            "content": "Chào bạn, mình là trợ lý của **Góc Bếp Nhỏ** đây! 🍲\n\nRất vui được đồng hành cùng bạn trong căn bếp ấm áp hôm nay. Bạn muốn mình gợi ý món gì, hướng dẫn cách nấu, hay xem dinh dưỡng của món nào? Hỏi mình thoải mái nhé!"
+            "content": "Chào bạn, mình là trợ lý của **Góc Bếp Nhỏ** đây! 🍲\n\nRất vui được đồng hành cùng bạn trong căn bếp ấm áp hôm nay. Bạn muốn mình hướng dẫn cách nấu, hay xem dinh dưỡng của món nào? Hỏi mình thoải mái nhé!"
         }
     ]
 
@@ -108,7 +108,7 @@ if prompt := st.chat_input("Hỏi mình món ăn bạn muốn nấu nhé... (ví
     
     # Sinh phản hồi từ AI
     with st.chat_message("assistant"):
-        with st.spinner("Bạn chờ mình suy nghĩ chút..."):
+        with st.spinner("Chờ mình tìm công thức nấu ăn nha..."):
             # Xây dựng lịch sử cho Gemini (chỉ các tin nhắn trước tin nhắn người dùng hiện tại)
             gemini_history = []
             for msg in st.session_state.messages[:-1]:   # Loại bỏ tin nhắn người dùng mới nhất
@@ -124,7 +124,6 @@ if prompt := st.chat_input("Hỏi mình món ăn bạn muốn nấu nhé... (ví
             st.markdown(response_text)
     
     # Lưu phản hồi của AI vào history
-    st.session_state.messages.append({"role": "assistant", "content": response_text})
-
+    st.session_state.messages.append({"role": "assistant", "content": response_text})   
 # ========================= FOOTER =========================
 st.caption("💡 Dữ liệu được lấy trực tiếp từ file `food.csv` • Powered by Gemini + Streamlit")
