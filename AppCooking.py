@@ -108,7 +108,7 @@ if prompt := st.chat_input("Hỏi mình món ăn bạn muốn nấu nhé... (ví
     
     # Sinh phản hồi từ AI
     with st.chat_message("assistant"):
-        with st.spinner("Chờ mình tìm công thức nấu ăn nha..."):
+        with st.spinner("Chờ mình xíu nha..."):
             # Xây dựng lịch sử cho Gemini (chỉ các tin nhắn trước tin nhắn người dùng hiện tại)
             gemini_history = []
             for msg in st.session_state.messages[:-1]:   # Loại bỏ tin nhắn người dùng mới nhất
